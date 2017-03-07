@@ -1,0 +1,170 @@
+/**
+ * acg主题
+ */
+ /*背景*/
+.-acg- .background::before, .-acg-.background::before {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 6px;
+    color: #fff;
+    content: "[图片信息] "attr(data-acg-bg-info);
+}
+
+/*贴纸*/
+.-acg- .sticker {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 120px;
+    bottom: 30px;
+    display: flex;
+    justify-content: center;
+    font-family: arial,tahoma,'Microsoft Yahei','\5b8b\4f53',sans-serif;
+}
+.-acg- .sticker>a {
+    position: relative;
+    min-width: 118px;
+    height: 118px;
+    line-height: 118px;
+    color: #eee;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 6px;
+    text-decoration: none;
+}
+.-acg- .sticker>a:hover {
+    border: none;
+    min-width: 120px;
+    height: 120px;
+    line-height: 120px;
+    color: white;
+}
+.-acg- .sticker>a::before {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 30px;
+    opacity: 0.6;
+    -webkit-transition: opacity 3s;
+    -moz-transition: opacity 3s;
+    transition: opacity 3s;
+    content: "";
+}
+.-acg- .sticker>a:hover::before {
+    opacity: 1;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    transition: opacity 1s;
+}
+.-acg- .sticker>a:active {
+    margin-top: 9px;
+}
+.-acg- .sticker>a>h1 {
+    font-size: 80px;
+}
+.-acg- .sticker>a>h3 {
+    font-size: 36px;
+}
+.-acg- .sticker>a>h1,
+.-acg- .sticker>a>h3,
+.-acg- .sticker>a>p,
+.-acg- .sticker>a>i {
+    margin: 0;
+    font-weight: normal;
+}
+.-acg- .sticker>a>img,
+.-acg- .sticker>a>i {
+    margin: 9px;
+    width: 100px;
+    height: 100px;
+    font-size: 90px;
+}
+.-acg- .sticker>a>*:last-child,
+.-acg- .sticker>a:hover>*:first-child {
+    display: none;
+}
+.-acg- .sticker>a>*:first-child,
+.-acg- .sticker>a:hover>*:last-child {
+    display: block;
+}
+.-acg- .sticker>a.black::before {
+    background-color: black;
+}
+.-acg- .sticker>a.blue::before {
+    background-color: #03A9F4;
+}
+.-acg- .sticker>a.green::before {
+    background-color: #4CAF50;
+}
+.-acg- .sticker>a.yellow::before {
+    background-color: #FFEB3B;
+}
+.-acg- .sticker>a.pink::before {
+    background-color: #E91E63;
+}
+.-acg- .sticker>a.indigo::before {
+    background-color: #3F51B5;
+}
+.-acg- .sticker>a.red::before {
+    background-color: #FF5252;
+}
+.-acg- .sticker>a.grey::before {
+    background-color: #9E9E9E;
+}
+@media screen and (min-width: 900px) and (max-width: 1080px) {
+    .-acg- .sticker {
+        bottom: 6px;
+    }
+    .-acg- .sticker>a {
+        transform: scale(0.8);
+        margin: -8px;
+    }
+    .-acg- .sticker>a:active {
+        margin-top: -6px;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    .-acg- .sticker {
+        bottom: -6px;
+    }
+    .-acg- .sticker>a {
+        transform: scale(0.6);
+        margin: -20px;
+    }
+    .-acg- .sticker>a:active {
+        margin-top: -18px;
+        margin-bottom: -22px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .-acg- .sticker {
+        bottom: -30px;
+    }
+    .-acg- .sticker>a {
+        transform: scale(0.5);
+        margin: -24px;
+    }
+    .-acg- .sticker>a:active {
+        margin-top: -23px;
+        margin-bottom: -25px;
+    }
+}
+.-acg- .sticker>a[data-acg-show-hash] {
+    display: none;
+}
+
+/*弹幕*/
+.-acg- #barrage, .-acg->#barrage {
+    z-index: 1;
+    pointer-events: none;
+}
+.-acg- #barrage>p, .-acg->#barrage>p {
+    background: white;
+    pointer-events: auto;
+}
