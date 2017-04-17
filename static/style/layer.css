@@ -16,7 +16,7 @@
     height: 100%;
     transform-origin: 50% 50%;
     background-position: center;
-    transition: transform-origin 0.5s;
+    transition: transform-origin 0.3s;
 }
 .-layer->div.blur {
     -webkit-filter: blur(3px);
