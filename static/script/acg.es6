@@ -6,7 +6,7 @@
         "background": {
             "doms": document.querySelectorAll(".-acg- .background, .-acg-.background"),
             "images": [{
-                url: "./static/image/acg_bgs/49647343_p0.png",
+                // url: "./static/image/acg_bgs/49647343_p0.png",
                 info: "PixivID: 49647343 | 画师：コ゛りぼて",
             }],  // 图片缓存队列，可空数组，获取到的图片会扩展进入数组。
             // "images": [],
@@ -84,7 +84,6 @@
             return acg.colors[sum % acg.colors.length];
         }
         let offset = 0;
-        let total = 0;
         const articles = [];
         let zoneArticles = articles;
         function pullArticle() {
@@ -92,119 +91,39 @@
             pullArticle = () => { };
             function recover() { pullArticle = _pullArticle; }
             // 获取远程数据后回调
-            {
-                const data = [
-                    {
-                        "zone": "game",
-                        "title": "某某文章标题某某文章标题",
-                        "link": "#",
-                        "date": "2017-04-03",
-                        "image": "./static/image/acg_bgs/49647343_p0.png",
-                        "abstracts": [
-                            "大致介绍",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                        ],
-                        "targets": [
-                            "治愈",
-                            "末世",
-                            "纯爱",
-                        ],
-                    },
-                    {
-                        "zone": "music",
-                        "title": "123某某文章标题某某文章标题",
-                        "link": "#",
-                        "date": "2017-04-03",
-                        "image": "./static/image/acg_bgs/49647343_p0.png",
-                        "abstracts": [
-                            "大致介绍",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                        ],
-                        "targets": [
-                            "治愈",
-                            "末世",
-                            "纯爱",
-                        ],
-                    },
-                    {
-                        "zone": "game",
-                        "title": "234某某文章标题某某文章标题",
-                        "link": "#",
-                        "date": "2017-04-03",
-                        "image": "./static/image/acg_bgs/49647343_p0.png",
-                        "abstracts": [
-                            "大致介绍",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                        ],
-                        "targets": [
-                            "治愈",
-                            "末世",
-                            "纯爱",
-                        ],
-                    },
-                    {
-                        "zone": "music",
-                        "title": "333某某文章标题某某文章标题",
-                        "link": "#",
-                        "date": "2017-04-03",
-                        "image": "./static/image/acg_bgs/49647343_p0.png",
-                        "abstracts": [
-                            "大致介绍",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                        ],
-                        "targets": [
-                            "治愈",
-                            "末世",
-                            "纯爱",
-                        ],
-                    },
-                    {
-                        "zone": "game",
-                        "title": "444某某文章标题某某文章标题",
-                        "link": "#",
-                        "date": "2017-04-03",
-                        "image": "./static/image/acg_bgs/49647343_p0.png",
-                        "abstracts": [
-                            "大致介绍",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                            "继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话继续废话",
-                        ],
-                        "targets": [
-                            "治愈",
-                            "末世",
-                            "纯爱",
-                        ],
-                    },
-                ];
-                data.forEach(({ zone, title, link, date, image, abstracts, targets, }) => {
+            github.acgData().then(data => {
+                data.forEach(({ zone, title, url, date, image, abstracts, labels, }) => {
                     const article = document.createElement('article');
                     const [dateStr, dayColor] = parseDate(date);
                     article.classList.add('article', dayColor);
+                    const footer = labels.reduce((s, label) => {
+                        if (!document.head.querySelector(`style#label-${label.name}`)) {
+                            const style = document.createElement("style");
+                            style.id = `label-${label.name}`;
+                            style.innerHTML = `
+                                .-acg- .article>footer>i.label-${label.name} { background-color: #${label.color}; }
+                                .-acg- .article>footer>i.label-${label.name}::before { border-right-color: #${label.color}; }
+                            `;
+                            document.head.appendChild(style);
+                        }
+                        return s + `<i class="label-${label.name}">${label.name}</i>`;
+                    }, '');
                     article.innerHTML = `
                         <time>${dateStr}</time>
-                                <h3>${title}</h3>
-                                <section>
-                                    <img src="${image}" alt="${title}" />
-                                    <p>${abstracts.join('</p><p>')}</p>
-                                </section>
-                                <footer>
-                                    ${targets.reduce((s, target) => s + `<i class="${colorFromTarget(target)}">${target}</i>`, '')}
-                                </footer>
+                        <h3>${title}</h3>
+                        <section>
+                            <img src="${image}" alt="${title}" />
+                            <div><p>${abstracts.join('</p><p>')}</p></div>
+                        </section>
+                        <footer>${footer}</footer>
                     `;
-                    article.addEventListener('click', e => location.href = link);
+                    article.addEventListener('click', e => location.href = url);
                     article.setAttribute('data-acg-zone', zone);
                     articles.push(article);
                 });
-                total = data.length;
-                if (articles.length == total) {
-                    recover = pullArticle = () => { };
-                }
-                recover();
-            }
+                dataManager.load();
+                data.length > 0 && recover();
+            });
         }
         pullArticle();
         return {
@@ -218,10 +137,12 @@
                 });
                 right.addEventListener("click", e => {
                     offset++;
-                    if (offset > zoneArticles.length - 30) {
+                    if (offset > zoneArticles.length - 5) {  // pre-load data
                         pullArticle();
-                    } else if (offset >= total) {
-                        offset = total - 1;
+                    }
+                    if (offset >= zoneArticles.length - cards.length) {
+                        // TODO 加载中或已到末尾的提示
+                        offset = zoneArticles.length - cards.length;
                     }
                     dataManager.load();
                 });
@@ -229,9 +150,10 @@
                 dataManager.left = left;
                 dataManager.right = right;
             },
-            load(zone="") {
+            load(zone = "") {
                 dataManager.cards.forEach((card, index) => {
                     const article = zoneArticles[offset + index];
+                    // TODO :143 或加载一个临时的空区块
                     if (article == card.children[0]) {
                         return;
                     }
@@ -248,17 +170,19 @@
         const centerDiv = document.querySelector('.-acg- .card>div.hover-center');
         if (innerWidth / innerHeight > 1) {
             // 横向，电脑
-            cards.push((d => {
-                d.classList.add('hover-left');
-                centerDiv.before(d);
-                return d;
-            })(document.createElement('div')), (d => {
-                return d;
-            })(centerDiv), (d => {
-                d.classList.add('hover-right')
-                centerDiv.after(d);
-                return d;
-            })(document.createElement('div')));
+            cards.push(
+                (d => {
+                    d.classList.add('hover-left');
+                    centerDiv.before(d);
+                    return d;
+                })(document.createElement('div')),
+                centerDiv,
+                (d => {
+                    d.classList.add('hover-right')
+                    centerDiv.after(d);
+                    return d;
+                })(document.createElement('div'))
+            );
         } else {
             // 竖向，手机
             cards.push(centerDiv);
