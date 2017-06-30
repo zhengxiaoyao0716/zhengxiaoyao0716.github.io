@@ -47,6 +47,7 @@
 }
 .-acg- .article>section>div>* {
     position: relative;
+    word-break: break-all;
 }
 .-acg- .article>section>div>*:not(:last-child)::after {
     position: absolute;

@@ -6,7 +6,7 @@
         "background": {
             "doms": document.querySelectorAll(".-acg- .background, .-acg-.background"),
             "images": [{
-                // url: "./static/image/acg_bgs/49647343_p0.png",
+                url: "./static/image/acg_bgs/49647343_p0.png",
                 info: "PixivID: 49647343 | 画师：コ゛りぼて",
             }],  // 图片缓存队列，可空数组，获取到的图片会扩展进入数组。
             // "images": [],
@@ -89,9 +89,8 @@
         function pullArticle() {
             const _pullArticle = pullArticle;
             pullArticle = () => { };
-            function recover() { pullArticle = _pullArticle; }
             // 获取远程数据后回调
-            github.acgData().then(data => {
+            github.acgData().then((data) => {
                 data.forEach(({ zone, title, url, date, image, abstracts, labels, }) => {
                     const article = document.createElement('article');
                     const [dateStr, dayColor] = parseDate(date);
@@ -117,12 +116,12 @@
                         </section>
                         <footer>${footer}</footer>
                     `;
-                    article.addEventListener('click', e => location.href = url);
+                    article.addEventListener('click', e => open(url));
                     article.setAttribute('data-acg-zone', zone);
                     articles.push(article);
                 });
                 dataManager.load();
-                data.length > 0 && recover();
+                pullArticle = data.length > 0 ? _pullArticle : () => true;
             });
         }
         pullArticle();
@@ -135,14 +134,16 @@
                     }
                     dataManager.load();
                 });
+                let isFinish;
                 right.addEventListener("click", e => {
                     offset++;
                     if (offset > zoneArticles.length - 5) {  // pre-load data
-                        pullArticle();
+                        isFinish = pullArticle();
                     }
                     if (offset >= zoneArticles.length - cards.length) {
-                        // TODO 加载中或已到末尾的提示
                         offset = zoneArticles.length - cards.length;
+                        isFinish || (offset += 1);
+                        offset < 0 && (offset = 0);
                     }
                     dataManager.load();
                 });
@@ -150,10 +151,13 @@
                 dataManager.left = left;
                 dataManager.right = right;
             },
-            load(zone = "") {
+            /** @param {string} zone empty value means not change, zero value means don't filter zone */
+            load(zone) {
+                zone != null && (articles.zone = zone);  // zone is not empty then reset filter
+                zoneArticles = articles.zone == "" ?
+                    articles : articles.filter(article => article.getAttribute('data-acg-zone') == articles.zone);
                 dataManager.cards.forEach((card, index) => {
                     const article = zoneArticles[offset + index];
-                    // TODO :143 或加载一个临时的空区块
                     if (article == card.children[0]) {
                         return;
                     }
@@ -243,7 +247,7 @@
                 ({
                     "#": () => {
                         // 首页
-                        dataManager.load();
+                        dataManager.load("");
                     },
                     "#anime": () => {
                         // 动画
