@@ -81,8 +81,9 @@
     border-bottom: 12px solid transparent;
     content: "";
 }
+
 /*卡片*/
-.-acg- .card {
+.-acg- #card {
     position: absolute;
     width: 94%;
     height: 90%;
@@ -92,7 +93,7 @@
     justify-content: center;
     align-items: center;
 }
-.-acg- .card>div {
+.-acg- #card>div {
     height: 92%;
     flex-grow: 1;
     flex-shrink: 1;
@@ -104,22 +105,22 @@
     transition: transform 0.3s ease;
     cursor: pointer;
 }
-.-acg- .card>div.hover-left {
+.-acg- #card>div.hover-left {
     transform: perspective(100px) rotateY(3deg);
     box-shadow: -3px 1px 3px #eee;
 }
-.-acg- .card>div.hover-center {
+.-acg- #card>div.hover-center {
     transform: perspective(100px) rotateY(0deg) scale(1.05);
     box-shadow: 0px 1px 3px #eee;
 }
-.-acg- .card>div.hover-right {
+.-acg- #card>div.hover-right {
     transform: perspective(100px) rotateY(-3deg);
     box-shadow: 3px 1px 3px #eee;
 }
-.-acg- .card>div.hover-center:hover {
+.-acg- #card>div.hover-center:hover {
     transform: perspective(100px) rotateY(0deg) scale(1.1);
 }
-.-acg- .card>div::before {
+.-acg- #card>div::before {
     position: absolute;
     display: block;
     height: 100%;
@@ -128,16 +129,39 @@
     content: "";
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, transparent 30%);
 }
-.-acg- .card>a {
+.-acg- #card>a {
     color: #eee;
     font-size: 24px;
 }
-.-acg- .card>a:hover {
+.-acg- #card>a:hover {
     color: #fff;
 }
 
+/*后台*/
+.-acg- #board {
+    display: block;
+    position: absolute;
+    width: 94%;
+    height: 90%;
+    left: 3%;
+    top: 3%;
+}
+.-acg- #board::before {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 100%;
+    height: 100%;
+    background: #666;
+    content: "";
+    opacity: 0.6;
+    border: 10px solid #666;
+    border-radius: 30px;
+    box-shadow: 0 0 12px 6px #fff;
+}
+
 /*贴纸*/
-.-acg- .sticker {
+.-acg- #sticker {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -149,10 +173,10 @@
     pointer-events: none;
     
 }
-.-acg- .sticker>* {
+.-acg- #sticker>* {
     pointer-events: all;
 }
-.-acg- .sticker>a {
+.-acg- #sticker>a {
     position: relative;
     min-width: 118px;
     height: 118px;
@@ -165,14 +189,14 @@
     margin: 6px;
     text-decoration: none;
 }
-.-acg- .sticker>a:hover {
+.-acg- #sticker>a:hover {
     border: none;
     min-width: 120px;
     height: 120px;
     line-height: 120px;
     color: white;
 }
-.-acg- .sticker>a::before {
+.-acg- #sticker>a::before {
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -186,83 +210,83 @@
     transition: opacity 3s;
     content: "";
 }
-.-acg- .sticker>a:hover::before {
+.-acg- #sticker>a:hover::before {
     opacity: 1;
     -webkit-transition: opacity 1s;
     -moz-transition: opacity 1s;
     transition: opacity 1s;
 }
-.-acg- .sticker>a:active {
+.-acg- #sticker>a:active {
     margin-top: 9px;
 }
-.-acg- .sticker>a>h1 {
+.-acg- #sticker>a>h1 {
     font-size: 80px;
 }
-.-acg- .sticker>a>h3 {
+.-acg- #sticker>a>h3 {
     font-size: 36px;
 }
-.-acg- .sticker>a>h1,
-.-acg- .sticker>a>h3,
-.-acg- .sticker>a>p,
-.-acg- .sticker>a>i {
+.-acg- #sticker>a>h1,
+.-acg- #sticker>a>h3,
+.-acg- #sticker>a>p,
+.-acg- #sticker>a>i {
     margin: 0;
     font-weight: normal;
 }
-.-acg- .sticker>a>img,
-.-acg- .sticker>a>i {
+.-acg- #sticker>a>img,
+.-acg- #sticker>a>i {
     margin: 9px;
     width: 100px;
     height: 100px;
     font-size: 90px;
 }
-.-acg- .sticker>a>*:last-child,
-.-acg- .sticker>a:hover>*:first-child {
+.-acg- #sticker>a>*:last-child,
+.-acg- #sticker>a:hover>*:first-child {
     display: none;
 }
-.-acg- .sticker>a>*:first-child,
-.-acg- .sticker>a:hover>*:last-child {
+.-acg- #sticker>a>*:first-child,
+.-acg- #sticker>a:hover>*:last-child {
     display: block;
 }
-.-acg- .sticker {
+.-acg- #sticker {
     transform-origin: bottom;
     -webkit-transition: bottom 0.3s ease;
     -moz-transition: bottom 0.3s ease;
     transition: bottom 0.3s ease;
 }
-.-acg- .sticker.fold {
+.-acg- #sticker.fold {
     -webkit-transition: bottom 0.3s ease;
     -moz-transition: bottom 0.3s ease;
     transition: bottom 0.3s ease;
     bottom: -100px;
 }
 @media screen and (min-width: 900px) and (max-width: 1080px) {
-    .-acg- .sticker {
+    .-acg- #sticker {
         transform: scale(0.8);
     }
-    .-acg- .sticker.fold {
+    .-acg- #sticker.fold {
         bottom: -80px;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 900px) {
-    .-acg- .sticker {
+    .-acg- #sticker {
         transform: scale(0.6);
     }
-    .-acg- .sticker.fold {
+    .-acg- #sticker.fold {
         bottom: -60px;
     }
 }
 @media screen and (max-width: 600px) {
-    .-acg- .sticker {
+    .-acg- #sticker {
         transform: scale(0.5);
     }
-    .-acg- .sticker.fold {
+    .-acg- #sticker.fold {
         bottom: -50px;
     }
 }
-.-acg- .sticker>a[data-acg-show-hash] {
+.-acg- #sticker>a[data-acg-show-hash] {
     display: none;
 }
-.-acg- .sticker>#resize:first-child {
+.-acg- #sticker>#resize:first-child {
     position: absolute;
     text-align: center;
     display: block;
@@ -274,13 +298,13 @@
     top: -16px;
     font-size: 12px;
 }
-.-acg- .sticker>#resize:first-child>i {
+.-acg- #sticker>#resize:first-child>i {
     font-style: normal;
 }
-.-acg- .sticker:not(.fold)>#resize:first-child>i.folded {
+.-acg- #sticker:not(.fold)>#resize:first-child>i.folded {
     display: none;
 }
-.-acg- .sticker.fold>#resize:first-child>i.normal {
+.-acg- #sticker.fold>#resize:first-child>i.normal {
     display: none;
 }
 
@@ -297,42 +321,42 @@
 /*颜色*/
 .-acg- .article.black>time,
 .-acg- .article.black>section>div>*::after,
-.-acg- .sticker>a.black::before {
+.-acg- #sticker>a.black::before {
     background-color: #000;
 }
 .-acg- .article.blue>time,
 .-acg- .article.blue>section>div>*::after,
-.-acg- .sticker>a.blue::before {
+.-acg- #sticker>a.blue::before {
     background-color: #03A9F4;
 }
 .-acg- .article.green>time,
 .-acg- .article.green>section>div>*::after,
-.-acg- .sticker>a.green::before {
+.-acg- #sticker>a.green::before {
     background-color: #4CAF50;
 }
 .-acg- .article.yellow>time,
 .-acg- .article.yellow>section>div>*::after,
-.-acg- .sticker>a.yellow::before {
+.-acg- #sticker>a.yellow::before {
     background-color: #FFEB3B;
 }
 .-acg- .article.pink>time,
 .-acg- .article.pink>section>div>*::after,
-.-acg- .sticker>a.pink::before {
+.-acg- #sticker>a.pink::before {
     background-color: #E91E63;
 }
 .-acg- .article.indigo>time,
 .-acg- .article.indigo>section>div>*::after,
-.-acg- .sticker>a.indigo::before {
+.-acg- #sticker>a.indigo::before {
     background-color: #3F51B5;
 }
 .-acg- .article.red>time,
 .-acg- .article.red>section>div>*::after,
-.-acg- .sticker>a.red::before {
+.-acg- #sticker>a.red::before {
     background-color: #FF5252;
 }
 .-acg- .article.grey>time,
 .-acg- .article.grey>section>div>*::after,
-.-acg- .sticker>a.grey::before {
+.-acg- #sticker>a.grey::before {
     background-color: #9E9E9E;
 }
 .-acg- .article.black>time::after {

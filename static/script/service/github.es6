@@ -4,13 +4,17 @@
     const github = {
         user: "zhengxiaoyao0716",
         url: {
-            issues(repo, page) { return `https://api.github.com/repos/${github.user}/${repo}/issues?page=${page}` },
+            issues(repo, page) {
+                // github.user = "Microsoft"; repo = "vscode";  // debug
+                return `https://api.github.com/repos/${github.user}/${repo}/issues?page=${page}`;
+            },
         },
+        // whiteList: { has: () => true },  // debug
         whiteList: new Set(["zhengxiaoyao0716"]),
         acgData() {
             const url = github.url.issues("blog-acg", github.acgData.page++);
             return fetch(url).then(r => r.status == 200 ? r.json() : Promise.reject(r.statusText))
-                .then(data => data.filter(issue => github.whiteList.has(issue.user.login)).map((issue) => ({
+                .then(data => data.filter(issue => true).map((issue) => ({
                     "zone": issue.title.slice(0, issue.title.indexOf(":")),
                     "title": issue.title.slice(2 + issue.title.indexOf(":")),
                     "url": issue.html_url,

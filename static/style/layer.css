@@ -2,14 +2,14 @@
  * 图层
  */
 .-layer- {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     width: 100%;
     height: 100%;
 }
 .-layer->div {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     width: 100%;
@@ -23,7 +23,7 @@
     filter: blur(3px);
 }
 .-layer->div.blur::after {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     width: 100%;

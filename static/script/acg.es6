@@ -14,6 +14,13 @@
             // "provider": "http://pic.api.freejishu.com/v2/?tag=acg",  // 图片供应api，空值表示不获取新图片
         },
         "colors": ["black", "blue", "green", "yellow", "pink", "indigo", "red", "grey",],
+        attributes: {
+            bgInfo: "data-acg-bg-info",
+            zone: "data-acg-zone",
+            hideHash: "data-acg-hide-hash",
+            showHash: "data-acg-show-hash",
+            display: "data-anim-display",
+        }
     };
 
     // 随机背景
@@ -57,7 +64,7 @@
                 }
             }).then(image => image && acg.background.doms.forEach(div => {
                 div.style.backgroundImage = 'url(' + image.url + ')';
-                div.setAttribute("data-acg-bg-info", image.info);
+                div.setAttribute(acg.attributes.bgInfo, image.info);
             }));
         };
         nextImage();
@@ -94,7 +101,7 @@
                 data.forEach(({ zone, title, url, date, image, abstracts, labels, }) => {
                     const article = document.createElement('article');
                     const [dateStr, dayColor] = parseDate(date);
-                    article.classList.add('article', dayColor);
+                    article.classList.add('article', dayColor, "-anim-", "fade");
                     const footer = labels.reduce((s, label) => {
                         if (!document.head.querySelector(`style#label-${label.name}`)) {
                             const style = document.createElement("style");
@@ -117,7 +124,7 @@
                         <footer>${footer}</footer>
                     `;
                     article.addEventListener('click', e => open(url));
-                    article.setAttribute('data-acg-zone', zone);
+                    article.setAttribute(acg.attributes.zone, zone);
                     articles.push(article);
                 });
                 dataManager.load();
@@ -154,8 +161,8 @@
             /** @param {string} zone empty value means not change, zero value means don't filter zone */
             load(zone) {
                 zone != null && (articles.zone = zone);  // zone is not empty then reset filter
-                zoneArticles = articles.zone == "" ?
-                    articles : articles.filter(article => article.getAttribute('data-acg-zone') == articles.zone);
+                zoneArticles = !articles.zone ?
+                    articles : articles.filter(article => article.getAttribute(acg.attributes.zone) == articles.zone);
                 dataManager.cards.forEach((card, index) => {
                     const article = zoneArticles[offset + index];
                     if (article == card.children[0]) {
@@ -171,7 +178,7 @@
     // 卡片模块
     {
         const cards = [];
-        const centerDiv = document.querySelector('.-acg- .card>div.hover-center');
+        const centerDiv = document.querySelector('.-acg- #card>div.hover-center');
         if (innerWidth / innerHeight > 1) {
             // 横向，电脑
             cards.push(
@@ -209,8 +216,8 @@
             });
         });
         // 左右滑动
-        const left = document.querySelector('.-acg- .card>a:first-child');
-        const right = document.querySelector('.-acg- .card>a:last-child');
+        const left = document.querySelector('.-acg- #card>a:first-child');
+        const right = document.querySelector('.-acg- #card>a:last-child');
         dataManager.init(cards, left, right);
         document.addEventListener("mousewheel", e => {
             let y = e.deltaY;
@@ -234,16 +241,18 @@
                 style.setAttribute("id", "acg-sticker-style");
                 return style;
             })(document.createElement("style"));
+            const board = document.querySelector(".-acg- #board");
             return (e) => {
                 const hash = location.hash || "#";
                 style.innerHTML = `
-                    .-acg- .sticker>a[data-acg-hide-hash="${hash}"] {
+                    .-acg- #sticker>a[${acg.attributes.hideHash}="${hash}"] {
                         display: none;
                     }
-                    .-acg- .sticker>a[data-acg-show-hash="${hash}"] {
+                    .-acg- #sticker>a[${acg.attributes.showHash}="${hash}"] {
                         display: block;
                     }
                 `;
+                board.setAttribute(acg.attributes.display, false);
                 ({
                     "#": () => {
                         // 首页
@@ -262,8 +271,10 @@
                         dataManager.load("music");
                     },
                     "#board": () => {
+                        dataManager.load();
                         // 后台
-                        console.log("b");
+                        // TODO 建筑后台模块，如弹幕管理、页面bg,bgm评论点赞等
+                        board.setAttribute(acg.attributes.display, true);
                     }
                 })[hash]();
             }
@@ -275,7 +286,7 @@
     // 初始方法
     {
         const acg = document.querySelector('.-acg-');
-        const sticker = acg.querySelector('.sticker');
+        const sticker = acg.querySelector('#sticker');
         const resize = sticker.querySelector('#resize:first-child');
         resize.addEventListener('click', e => sticker.classList.contains('fold') ? sticker.classList.remove('fold') : sticker.classList.add('fold'));
         // 存储折叠状态
