@@ -81,6 +81,14 @@
     border-bottom: 12px solid transparent;
     content: "";
 }
+/*TODO UC不支持variables?*/
+.-acg- .article>time,
+.-acg- .article>section>div>*::after {
+    background-color: var(--color);
+}
+.-acg- .article>time::after {
+    border-left-color: var(--color);
+}
 
 /*卡片*/
 .-acg- #card {
@@ -155,8 +163,8 @@
     background: #666;
     content: "";
     opacity: 0.6;
-    border: 10px solid #666;
-    border-radius: 30px;
+    border: 5px solid #666;
+    border-radius: 15px;
     box-shadow: 0 0 12px 6px #fff;
 }
 
@@ -307,6 +315,10 @@
 .-acg- #sticker.fold>#resize:first-child>i.normal {
     display: none;
 }
+/*TODO UC不支持variables?*/
+.-acg- #sticker>a::before {
+    background-color: var(--color);
+}
 
 /*弹幕*/
 .-acg- #barrage, .-acg->#barrage {
@@ -316,77 +328,4 @@
 .-acg- #barrage>p, .-acg->#barrage>p {
     background: white;
     pointer-events: auto;
-}
-
-/*颜色*/
-.-acg- .article.black>time,
-.-acg- .article.black>section>div>*::after,
-.-acg- #sticker>a.black::before {
-    background-color: #000;
-}
-.-acg- .article.blue>time,
-.-acg- .article.blue>section>div>*::after,
-.-acg- #sticker>a.blue::before {
-    background-color: #03A9F4;
-}
-.-acg- .article.green>time,
-.-acg- .article.green>section>div>*::after,
-.-acg- #sticker>a.green::before {
-    background-color: #4CAF50;
-}
-.-acg- .article.yellow>time,
-.-acg- .article.yellow>section>div>*::after,
-.-acg- #sticker>a.yellow::before {
-    background-color: #FFEB3B;
-}
-.-acg- .article.pink>time,
-.-acg- .article.pink>section>div>*::after,
-.-acg- #sticker>a.pink::before {
-    background-color: #E91E63;
-}
-.-acg- .article.indigo>time,
-.-acg- .article.indigo>section>div>*::after,
-.-acg- #sticker>a.indigo::before {
-    background-color: #3F51B5;
-}
-.-acg- .article.red>time,
-.-acg- .article.red>section>div>*::after,
-.-acg- #sticker>a.red::before {
-    background-color: #FF5252;
-}
-.-acg- .article.grey>time,
-.-acg- .article.grey>section>div>*::after,
-.-acg- #sticker>a.grey::before {
-    background-color: #9E9E9E;
-}
-.-acg- .article.black>time::after {
-    border-left-color: #000;
-}
-
-.-acg- .article.blue>time::after {
-    border-left-color: #03A9F4;
-}
-
-.-acg- .article.green>time::after {
-    border-left-color: #4CAF50;
-}
-
-.-acg- .article.yellow>time::after {
-    border-left-color: #FFEB3B;
-}
-
-.-acg- .article.pink>time::after {
-    border-left-color: #E91E63;
-}
-
-.-acg- .article.indigo>time::after {
-    border-left-color: #3F51B5;
-}
-
-.-acg- .article.red>time::after {
-    border-left-color: #FF5252;
-}
-
-.-acg- .article.grey>time::after {
-    border-left-color: #9E9E9E;
 }

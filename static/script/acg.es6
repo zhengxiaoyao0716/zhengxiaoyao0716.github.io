@@ -19,7 +19,6 @@
             zone: "data-acg-zone",
             hideHash: "data-acg-hide-hash",
             showHash: "data-acg-show-hash",
-            display: "data-anim-display",
         }
     };
 
@@ -101,7 +100,8 @@
                 data.forEach(({ zone, title, url, date, image, abstracts, labels, }) => {
                     const article = document.createElement('article');
                     const [dateStr, dayColor] = parseDate(date);
-                    article.classList.add('article', dayColor, "-anim-", "fade");
+                    article.classList.add('article', "-anim-", "fade");
+                    article.style.setProperty('--color', `var(--color-${dayColor})`);
                     const footer = labels.reduce((s, label) => {
                         if (!document.head.querySelector(`style#label-${label.name}`)) {
                             const style = document.createElement("style");
@@ -241,7 +241,6 @@
                 style.setAttribute("id", "acg-sticker-style");
                 return style;
             })(document.createElement("style"));
-            const board = document.querySelector(".-acg- #board");
             return (e) => {
                 const hash = location.hash || "#";
                 style.innerHTML = `
@@ -252,7 +251,7 @@
                         display: block;
                     }
                 `;
-                board.setAttribute(acg.attributes.display, false);
+                board.fade.out();
                 ({
                     "#": () => {
                         // 首页
@@ -274,7 +273,7 @@
                         dataManager.load();
                         // 后台
                         // TODO 建筑后台模块，如弹幕管理、页面bg,bgm评论点赞等
-                        board.setAttribute(acg.attributes.display, true);
+                        board.fade.in();
                     }
                 })[hash]();
             }

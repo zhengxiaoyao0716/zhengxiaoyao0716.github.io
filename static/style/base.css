@@ -2,6 +2,15 @@ body {
     margin: 0px;
     overflow-x: hidden;
     background-color: #eee;
+    /*colors*/
+    --color-black: #000;
+    --color-blue: #03A9F4;
+    --color-green: #4CAF50;
+    --color-yellow: #FFEB3B;
+    --color-pink: #E91E63;
+    --color-indigo: #3F51B5;
+    --color-red: #FF5252;
+    --color-grey: #9E9E9E;
 }
 .body, .fill_parent {
     position: absolute;
