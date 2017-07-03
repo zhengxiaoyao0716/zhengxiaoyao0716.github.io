@@ -146,25 +146,71 @@
 
 /*后台*/
 .-acg- #board {
-    display: block;
     position: absolute;
-    width: 94%;
+    width: 90%;
     height: 90%;
-    left: 3%;
-    top: 3%;
+    left: 5%;
+    top: 4%;
+    display: flex;
+    flex-direction: column;
 }
 .-acg- #board::before {
     position: absolute;
+    z-index: -1;
     left: -5px;
     top: -5px;
     width: 100%;
     height: 100%;
-    background: #666;
+    background: #333;
     content: "";
-    opacity: 0.6;
+    opacity: 0.8;
     border: 5px solid #666;
     border-radius: 15px;
-    box-shadow: 0 0 12px 6px #fff;
+    box-shadow: 0 0 0 5px #999, 0 0 12px 6px #fff;
+}
+.-acg- #board>div {
+    display: flex;
+}
+.-acg- #board>#tabhead {
+    flex: 0 0 auto;
+}
+.-acg- #board>#tabbody {
+    flex: 1 1 auto;
+}
+.-acg- #board>div>* {
+    flex: 1 1 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.-acg- #board[data-acg-board-now="music"]>#tabhead>[data-acg-hide-board="music"],
+.-acg- #board[data-acg-board-now="image"]>#tabhead>[data-acg-hide-board="image"],
+.-acg- #board[data-acg-board-now="daily"]>#tabhead>[data-acg-hide-board="daily"],
+.-acg- #board>#tabhead>[data-acg-show-board], /*show-board 在其他情况下默认隐藏*/
+.-acg- #board.fold>#tabbody>div {
+    display: none;
+}
+.-acg- #board[data-acg-board-now="music"]>#tabhead>[data-acg-show-board="music"],
+.-acg- #board[data-acg-board-now="image"]>#tabhead>[data-acg-show-board="image"],
+.-acg- #board[data-acg-board-now="daily"]>#tabhead>[data-acg-show-board="daily"],
+.-acg- #board[data-acg-board-now="music"]>#tabbody>#music,
+.-acg- #board[data-acg-board-now="image"]>#tabbody>#image,
+.-acg- #board[data-acg-board-now="daily"]>#tabbody>#daily {
+    display: flex;
+}
+.-acg- #board>#tabbody>div>div:first-child {
+    display: flex;
+    flex: 0 0 auto;
+}
+.-acg- #board>#tabbody>div>div:last-child {
+    flex: 1 1 auto;
+}
+.-acg- #board>#tabbody>div>div:first-child>* {
+    flex: 0 0 auto;
+}
+.-acg- #board>#tabbody>div>div:first-child>input {
+    flex: 1 1 auto;
+    width: 0;
 }
 
 /*贴纸*/

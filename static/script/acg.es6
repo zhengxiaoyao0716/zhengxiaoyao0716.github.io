@@ -245,7 +245,7 @@
                 return style;
             })(document.createElement("style"));
             return (e) => {
-                const hash = location.hash || "#";
+                const [hash = "#", param] = location.hash.split("/");
                 style.innerHTML = `
                     .-acg- #sticker>a[${acg.attributes.hideHash}="${hash}"] {
                         display: none;
@@ -273,10 +273,10 @@
                         dataManager.load("music");
                     },
                     "#board": () => {
-                        dataManager.load();
                         // 后台
-                        // TODO 建筑后台模块，如弹幕管理、页面bg,bgm评论点赞等
+                        dataManager.load();
                         board.fade.in();
+                        board.switch(param);
                     }
                 })[hash]();
             }
