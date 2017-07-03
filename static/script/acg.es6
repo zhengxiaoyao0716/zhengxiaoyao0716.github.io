@@ -13,7 +13,6 @@
             // "interval": 30,  // 自动切换时间间隔，单位s，不大于0时（0、-1、undefined）不自动切换
             // "provider": "http://pic.api.freejishu.com/v2/?tag=acg",  // 图片供应api，空值表示不获取新图片
         },
-        "colors": ["black", "blue", "green", "yellow", "pink", "indigo", "red", "grey",],
         attributes: {
             bgInfo: "data-acg-bg-info",
             zone: "data-acg-zone",
@@ -79,7 +78,7 @@
             const d = new Date(year, month - 1, date);
             const day = d.getDay();
             const [, monthStr,] = d.toString().split(' ');
-            return [`${monthStr} ${date}, ${year}`, acg.colors[day + 1]];
+            return [`${monthStr} ${date}, ${year}`, base.colors[day + 1]];
         }
         // 计算标签颜色
         function colorFromTarget(target) {
@@ -87,7 +86,7 @@
             for (let char of target) {
                 sum += char.codePointAt(0);
             }
-            return acg.colors[sum % acg.colors.length];
+            return base.colors[sum % base.colors.length];
         }
         let offset = 0;
         const articles = [];
@@ -127,6 +126,9 @@
                     article.setAttribute(acg.attributes.zone, zone);
                     articles.push(article);
                 });
+                // 清除超过实际数据量的预置待加载区块
+                const maxOffset = zoneArticles.length - dataManager.cards.length;
+                offset >= maxOffset && (offset = maxOffset < 0 ? 0 : maxOffset);
                 dataManager.load();
                 pullArticle = data.length > 0 ? _pullArticle : () => true;
             });
@@ -147,8 +149,9 @@
                     if (offset > zoneArticles.length - 5) {  // pre-load data
                         isFinish = pullArticle();
                     }
-                    if (offset >= zoneArticles.length - cards.length) {
-                        offset = zoneArticles.length - cards.length;
+                    const maxOffset = zoneArticles.length - cards.length;
+                    if (offset >= maxOffset) {
+                        offset = maxOffset;
                         isFinish || (offset += 1);
                         offset < 0 && (offset = 0);
                     }
@@ -279,8 +282,9 @@
             }
         })()
     );
+
     // PATCH 修复UC浏览器onload提前触发问题
-    document.readyState == 'complete' && window.dispatchEvent(new Event('load', { target: window }));
+    document.readyState == 'complete' && dispatchEvent(new Event('load', { target: window }));
 
     // 初始方法
     {

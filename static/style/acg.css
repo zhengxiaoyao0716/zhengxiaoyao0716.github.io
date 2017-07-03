@@ -81,7 +81,6 @@
     border-bottom: 12px solid transparent;
     content: "";
 }
-/*TODO UC不支持variables?*/
 .-acg- .article>time,
 .-acg- .article>section>div>*::after {
     background-color: var(--color);
@@ -315,7 +314,6 @@
 .-acg- #sticker.fold>#resize:first-child>i.normal {
     display: none;
 }
-/*TODO UC不支持variables?*/
 .-acg- #sticker>a::before {
     background-color: var(--color);
 }

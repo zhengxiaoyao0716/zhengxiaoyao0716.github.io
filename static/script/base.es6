@@ -35,7 +35,9 @@
                     });
                 }
             }
-        }
+        },
+        "colors": ["black", "blue", "green", "yellow", "pink", "indigo", "red", "grey",],
+        "_colors": ["#000", "#03A9F4", "#4CAF50", "#FFEB3B", "#E91E63", "#3F51B5", "#FF5252", "#9E9E9E"],
     };
 
     // Module defined.
