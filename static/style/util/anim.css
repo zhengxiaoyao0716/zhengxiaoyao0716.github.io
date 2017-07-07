@@ -106,6 +106,14 @@
 }
 
 /*渐入渐出*/
+.-anim- .fade, .-anim-.fade {
+    pointer-events: none;
+    opacity: 0;
+}
+.-anim- .fade[data-anim-display], .-anim-.fade[data-anim-display] {
+    pointer-events: inherit;
+    opacity: 1;
+}
 .-anim- .fade[data-anim-display=false], .-anim-.fade[data-anim-display=false] {
     pointer-events: none;
     -webkit-animation: fade_out 1s forwards;

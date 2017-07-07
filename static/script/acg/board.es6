@@ -19,9 +19,9 @@
 
     if (innerWidth / innerHeight > 1) {
         // 横向，电脑
-    } else {
-        // 竖向，手机
         board.container.classList.remove("fold");
+        // } else {
+        //     // 竖向，手机
     }
 
     // Module defined.

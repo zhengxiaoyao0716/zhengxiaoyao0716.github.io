@@ -134,7 +134,7 @@
     width: 100%;
     z-index: -1;
     content: "";
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, transparent 30%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, transparent 60%);
 }
 .-acg- #card>a {
     color: #eee;
@@ -178,11 +178,16 @@
     flex: 1 1 auto;
 }
 .-acg- #board>div>* {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     text-align: center;
+}
+.-acg- #board>#tabbody>* {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
+/*.-acg- #board>#tabbody>*::-webkit-scrollbar { display: none; }
+.-acg- #board>#tabbody>*::scrollbar { display: none; }*/
 .-acg- #board[data-acg-board-now="music"]>#tabhead>[data-acg-hide-board="music"],
 .-acg- #board[data-acg-board-now="image"]>#tabhead>[data-acg-hide-board="image"],
 .-acg- #board[data-acg-board-now="daily"]>#tabhead>[data-acg-hide-board="daily"],
@@ -192,25 +197,83 @@
 }
 .-acg- #board[data-acg-board-now="music"]>#tabhead>[data-acg-show-board="music"],
 .-acg- #board[data-acg-board-now="image"]>#tabhead>[data-acg-show-board="image"],
-.-acg- #board[data-acg-board-now="daily"]>#tabhead>[data-acg-show-board="daily"],
+.-acg- #board[data-acg-board-now="daily"]>#tabhead>[data-acg-show-board="daily"] {
+    display: block;
+    color: #fff;
+}
 .-acg- #board[data-acg-board-now="music"]>#tabbody>#music,
 .-acg- #board[data-acg-board-now="image"]>#tabbody>#image,
 .-acg- #board[data-acg-board-now="daily"]>#tabbody>#daily {
     display: flex;
 }
-.-acg- #board>#tabbody>div>div:first-child {
-    display: flex;
+.-acg- #board a {
+    color: #ccc;
+}
+.-acg- #board a:hover {
+    color: #fff;
+}
+.-acg- #board>#tabhead>a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    margin: 3px;
+}
+.-acg- #board>#tabbody>div>div {
     flex: 0 0 auto;
+    position: relative;
 }
-.-acg- #board>#tabbody>div>div:last-child {
+.-acg- #board>#tabbody>div>table {
     flex: 1 1 auto;
+    width: 100%;
+    color: #fff;
 }
-.-acg- #board>#tabbody>div>div:first-child>* {
-    flex: 0 0 auto;
+.-acg- #board>#tabbody>div>div>a {
+    position: absolute;
+    top: 0;
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 24px;
 }
-.-acg- #board>#tabbody>div>div:first-child>input {
-    flex: 1 1 auto;
-    width: 0;
+.-acg- #board>#tabbody>div>div>a:first-child {
+    left: 4%;
+    padding-right: 4px;
+    border-right: 1px solid #fff;
+}
+.-acg- #board>#tabbody>div>div>a:last-child {
+    right: 4%;
+    padding-left: 1px;
+    border-left: 1px solid #fff;
+}
+.-acg- #board>#tabbody>div>div>input {
+    width: 80%;
+    background-color: transparent;
+    padding: 0 8%;
+    margin: 12px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    outline:none;
+    color: #fff;
+    line-height: 24px;
+}
+.-acg- #board>#tabbody>div>div>input::-webkit-input-placeholder { color: #ccc; }
+.-acg- #board>#tabbody>div>div>input::input-placeholder { color: #ccc; }
+.-acg- #board>#tabbody>div>table tr:not(:first-child)>td {
+    padding-top: 6px;
+}
+.-acg- #board>#tabbody>div>table tr:not(:last-child)>td {
+    border-bottom: 1px dashed #ccc;
+}
+.-acg- #board>#tabbody>div>table tr>td>span {
+    display: inline-block;
+    font-size: 16px;
+    max-width: 96px;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
 }
 
 /*贴纸*/

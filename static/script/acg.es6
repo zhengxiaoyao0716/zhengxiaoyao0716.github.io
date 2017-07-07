@@ -99,7 +99,7 @@
                 data.forEach(({ zone, title, url, date, image, abstracts, labels, }) => {
                     const article = document.createElement('article');
                     const [dateStr, dayColor] = parseDate(date);
-                    article.classList.add('article', "-anim-", "fade");
+                    article.classList.add('article');
                     article.style.setProperty('--color', `var(--color-${dayColor})`);
                     const footer = labels.reduce((s, label) => {
                         if (!document.head.querySelector(`style#label-${label.name}`)) {
@@ -245,7 +245,7 @@
                 return style;
             })(document.createElement("style"));
             return (e) => {
-                const [hash = "#", param] = location.hash.split("/");
+                const [hash, param] = location.hash ? location.hash.split("/") : ["#"];
                 style.innerHTML = `
                     .-acg- #sticker>a[${acg.attributes.hideHash}="${hash}"] {
                         display: none;
@@ -275,7 +275,7 @@
                     "#board": () => {
                         // 后台
                         dataManager.load();
-                        board.fade.in();
+                        board.fade.in(true);
                         board.switch(param);
                     }
                 })[hash]();

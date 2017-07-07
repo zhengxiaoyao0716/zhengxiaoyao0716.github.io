@@ -8,8 +8,8 @@
 
     anim.fade = function (ele) {
         return {
-            in: () => { ele.setAttribute(anim.attributes.display, true); },
-            out: () => { ele.setAttribute(anim.attributes.display, false); },
+            in: (force) => { (force || ele.getAttribute(anim.attributes.display) === "false") && ele.setAttribute(anim.attributes.display, true); },
+            out: (force) => { (force || ele.getAttribute(anim.attributes.display) === "true") && ele.setAttribute(anim.attributes.display, false); },
         }
     };
 
